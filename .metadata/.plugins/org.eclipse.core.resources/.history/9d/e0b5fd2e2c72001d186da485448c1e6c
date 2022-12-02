@@ -27,7 +27,7 @@ void button_reading()
 		{
 			if(debounceButtonBuffer3[i]!=debounceButtonBuffer1[i])
 			{
-				debounceButtonBuffer3[i]=debounceButtonBuffer1[i];
+				debounceButtonBuffer3[i]==debounceButtonBuffer1[i];
 				if(debounceButtonBuffer1[i]==BUTTON_IS_PRESSED)
 				{
 					buttonBuffer[i]=BUTTON_IS_PRESSED;

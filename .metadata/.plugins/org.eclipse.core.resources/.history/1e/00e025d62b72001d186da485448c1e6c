@@ -37,7 +37,7 @@ int mode;
 int initial_flag=1;
 
 UART_HandleTypeDef huart2;
-TIM_HandleTypeDef htim3;
+
 void initial()
 {
 	status_1=AUTO_RED;
@@ -178,8 +178,6 @@ void blinkLed(uint8_t led)
 }
 
 uint8_t str[30]="\0";
-int init_for_pes=0;
-int time_for_pes=0;
 void fsm_automatic()
 {
 	if(is_button_pressed(button1))
@@ -189,11 +187,6 @@ void fsm_automatic()
 	}
 	if(is_button_pressed(pes_but))
 	{
-		if(time_for_pes==0)
-		{
-			init_for_pes=0;
-			time_for_pes=time1;
-		}
 		setTimerPesBut(2000);
 		if(status_1==AUTO_RED || status_1==MAN_RED)
 		{
@@ -210,16 +203,11 @@ void fsm_automatic()
 			HAL_GPIO_WritePin(PES_RED_GPIO_Port, PES_RED_Pin, SET);
 			HAL_GPIO_WritePin(PES_GREEN_GPIO_Port, PES_GREEN_Pin, SET);
 		}
-		__HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,init_for_pes);
-		init_for_pes+=50;
-		time_for_pes--;
 	}
 	if(pes_flag==1)
 	{
 		HAL_GPIO_WritePin(PES_RED_GPIO_Port, PES_RED_Pin, RESET);
 		HAL_GPIO_WritePin(PES_GREEN_GPIO_Port, PES_GREEN_Pin, RESET);
-		init_for_pes=0;
-		time_for_pes=0;
 	}
 	switch(mode)
 	{

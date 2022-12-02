@@ -19,10 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "timer.h"
-#include "input_processing.h"
-#include "input_reading.h"
-#include "stdio.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -110,16 +107,12 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
   HAL_UART_Receive_IT (& huart2 , &rx_data , 1) ;
-  HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  initial();
   while (1)
   {
-	  fsm_automatic();
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

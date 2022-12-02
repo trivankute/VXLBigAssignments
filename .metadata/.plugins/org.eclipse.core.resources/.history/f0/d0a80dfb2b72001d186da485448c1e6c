@@ -37,7 +37,7 @@ int mode;
 int initial_flag=1;
 
 UART_HandleTypeDef huart2;
-TIM_HandleTypeDef htim3;
+
 void initial()
 {
 	status_1=AUTO_RED;
@@ -178,7 +178,7 @@ void blinkLed(uint8_t led)
 }
 
 uint8_t str[30]="\0";
-int init_for_pes=0;
+int pes_initial=1;
 int time_for_pes=0;
 void fsm_automatic()
 {
