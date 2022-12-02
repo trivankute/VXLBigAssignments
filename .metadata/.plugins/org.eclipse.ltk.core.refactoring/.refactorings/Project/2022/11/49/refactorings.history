@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Project/Core/Inc/input_reading.c&apos; to &apos;input_reading.h&apos;" description="Rename resource &apos;input_reading.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Inc/input_reading.c" name="input_reading.h" stamp="1669794673042" updateReferences="true"/>
+</session>

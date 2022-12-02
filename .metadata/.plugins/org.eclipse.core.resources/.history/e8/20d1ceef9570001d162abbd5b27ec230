@@ -1,0 +1,33 @@
+/*
+ * input_processing.c
+ *
+ *  Created on: Nov 30, 2022
+ *      Author: HELLO SON
+ */
+#include "input_processing.h"
+#include "input_reading.h"
+#include "timer.h"
+#include "main.h"
+
+#define RED 0
+#define GREEN 1
+
+#define button1 0
+#define button2 1
+#define button3 2
+#define pes_but 3
+
+#define AUTO_RED
+int status_1;
+int status_2;
+int status_pes;
+int time1;
+int time2;
+
+void initial()
+{
+	status_1=0;
+	mode=1;
+
+}
+

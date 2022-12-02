@@ -1,0 +1,17 @@
+/*
+ * timer.h
+ *
+ *  Created on: Nov 30, 2022
+ *      Author: HELLO SON
+ */
+
+#ifndef INC_TIMER_H_
+#define INC_TIMER_H_
+#include "main.h"
+
+extern int reset_flag;
+void setTimerReset(int duration);
+
+
+
+#endif /* INC_TIMER_H_ */

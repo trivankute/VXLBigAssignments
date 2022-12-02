@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;Project/Core/Inc/input_reading.h&apos;" deleteContents="false" description="Delete resource &apos;Project/Core/Inc/input_reading.h&apos;" element1="/Project/Core/Inc/input_reading.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1669794688352"/>
+</session>
