@@ -1,6 +1,7 @@
-timer.c:19:6:setTimerReset	16	static
-timer.c:24:6:setTimerRun	16	static
-timer.c:29:6:setTimerPesBut	16	static
-timer.c:34:6:setTimerBlink	16	static
-timer.c:39:6:timerRun	4	static
-timer.c:74:6:HAL_TIM_PeriodElapsedCallback	16	static
+timer.c:21:6:setTimerReset	16	static
+timer.c:26:6:setTimerRun	16	static
+timer.c:31:6:setTimerPesBut	16	static
+timer.c:36:6:setTimerBlink	16	static
+timer.c:41:6:setTimerBuzzer	16	static
+timer.c:46:6:timerRun	4	static
+timer.c:89:6:HAL_TIM_PeriodElapsedCallback	16	static

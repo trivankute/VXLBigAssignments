@@ -16,7 +16,7 @@ static GPIO_PinState debounceButtonBuffer3[NO_OF_BUTTONS];
 
 static uint16_t buttonPin[NO_OF_BUTTONS]={BUT_1_Pin,BUT_2_Pin,BUT_3_Pin,PES_BUT_Pin};
 static GPIO_TypeDef* buttonPort[NO_OF_BUTTONS]={BUT_1_GPIO_Port,BUT_2_GPIO_Port,BUT_3_GPIO_Port,PES_BUT_GPIO_Port};
-uint8_t duration_for_buttons;
+int duration_for_buttons;
 void button_reading()
 {
 	for(uint8_t i=0;i<NO_OF_BUTTONS;i++)
@@ -31,7 +31,7 @@ void button_reading()
 				if(debounceButtonBuffer1[i]==BUTTON_IS_PRESSED)
 				{
 					buttonBuffer[i]=BUTTON_IS_PRESSED;
-					duration_for_buttons=150;
+					duration_for_buttons=100;
 				}
 			}
 			else
@@ -50,8 +50,8 @@ int is_button_pressed(uint8_t index)
 {
 	if(buttonBuffer[index]==BUTTON_IS_PRESSED)
 	{
-		return 1;
 		buttonBuffer[index]=BUTTON_IS_RELEASED;
+		return 1;
 	}
 	else return 0;
 }

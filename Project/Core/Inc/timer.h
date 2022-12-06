@@ -13,9 +13,11 @@ extern int reset_flag;
 extern int run_flag;
 extern int pes_flag;
 extern int blink_flag;
+extern int buzzer_flag;
 void setTimerReset(int duration);
 void setTimerRun(int duration);
 void setTimerPesBut(int duration);
 void setTimerBlink(int duration);
+void setTimerBuzzer(int duration);
 
 #endif /* INC_TIMER_H_ */

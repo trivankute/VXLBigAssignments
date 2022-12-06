@@ -19,10 +19,9 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "timer.h"
 #include "input_processing.h"
 #include "input_reading.h"
-#include "stdio.h"
+#include "timer.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -59,12 +58,11 @@ static void MX_TIM3_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
-
+void buzzer_boi(uint8_t buzzer);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
 uint8_t rx_data;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
 {
@@ -73,6 +71,10 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
 		HAL_UART_Transmit(&huart2,&rx_data,sizeof(rx_data), 50);
 		HAL_UART_Receive_IT(&huart2, &rx_data, 1);
 	}
+}
+void buzzer_boi(uint8_t buzzer)
+{
+	__HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,buzzer);
 }
 /* USER CODE END 0 */
 
@@ -116,6 +118,8 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   initial();
+//HAL_GPIO_WritePin(Traffic_1_GREEN_GPIO_Port, Traffic_1_GREEN_Pin, 0);
+//HAL_GPIO_WritePin(Traffic_1_RED_GPIO_Port, Traffic_1_RED_Pin, 0);
   while (1)
   {
 	  fsm_automatic();
@@ -227,9 +231,9 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 1 */
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 799;
+  htim3.Init.Prescaler = 122;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 9;
+  htim3.Init.Period = 254;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)

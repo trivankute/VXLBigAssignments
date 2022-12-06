@@ -52,20 +52,20 @@ void traffic()
 {
 	if(status_1==AUTO_RED)
 	{
-		HAL_GPIO_WritePin(Traffic_1_RED_GPIO_Port, Traffic_1_RED_Pin, RESET);
-		HAL_GPIO_WritePin(Traffic_1_GREEN_GPIO_Port, Traffic_1_GREEN_Pin, SET);
+		HAL_GPIO_WritePin(Traffic_1_RED_GPIO_Port, Traffic_1_RED_Pin, SET);
+		HAL_GPIO_WritePin(Traffic_1_GREEN_GPIO_Port, Traffic_1_GREEN_Pin, RESET);
 		if(time1==0)
 		{
 			status_1=AUTO_GREEN;
-			HAL_GPIO_WritePin(Traffic_1_RED_GPIO_Port, Traffic_1_RED_Pin, SET);
-			HAL_GPIO_WritePin(Traffic_1_GREEN_GPIO_Port, Traffic_1_GREEN_Pin, RESET);
+			HAL_GPIO_WritePin(Traffic_1_RED_GPIO_Port, Traffic_1_RED_Pin, RESET);
+			HAL_GPIO_WritePin(Traffic_1_GREEN_GPIO_Port, Traffic_1_GREEN_Pin, SET);
 			time1=lightbufferRun[AUTO_GREEN];
 		}
 	}
 	else if(status_1==AUTO_GREEN)
 	{
-		HAL_GPIO_WritePin(Traffic_1_RED_GPIO_Port, Traffic_1_RED_Pin, SET);
-		HAL_GPIO_WritePin(Traffic_1_GREEN_GPIO_Port, Traffic_1_GREEN_Pin, RESET);
+		HAL_GPIO_WritePin(Traffic_1_RED_GPIO_Port, Traffic_1_RED_Pin, RESET);
+		HAL_GPIO_WritePin(Traffic_1_GREEN_GPIO_Port, Traffic_1_GREEN_Pin, SET);
 		if(time1==0)
 		{
 			status_1=AUTO_YELLOW;
@@ -81,27 +81,27 @@ void traffic()
 		if(time1==0)
 		{
 			status_1=AUTO_RED;
-			HAL_GPIO_WritePin(Traffic_1_RED_GPIO_Port, Traffic_1_RED_Pin, RESET);
-			HAL_GPIO_WritePin(Traffic_1_GREEN_GPIO_Port, Traffic_1_GREEN_Pin, SET);
+			HAL_GPIO_WritePin(Traffic_1_RED_GPIO_Port, Traffic_1_RED_Pin, SET);
+			HAL_GPIO_WritePin(Traffic_1_GREEN_GPIO_Port, Traffic_1_GREEN_Pin, RESET);
 			time1=lightbufferRun[AUTO_RED];
 		}
 	}
 	if(status_2==AUTO_RED)
 	{
-		HAL_GPIO_WritePin(Traffic_2_RED_GPIO_Port, Traffic_2_RED_Pin, RESET);
-		HAL_GPIO_WritePin(Traffic_2_GREEN_GPIO_Port, Traffic_2_GREEN_Pin, SET);
+		HAL_GPIO_WritePin(Traffic_2_RED_GPIO_Port, Traffic_2_RED_Pin, SET);
+		HAL_GPIO_WritePin(Traffic_2_GREEN_GPIO_Port, Traffic_2_GREEN_Pin, RESET);
 		if(time2==0)
 		{
 			status_2=AUTO_GREEN;
-			HAL_GPIO_WritePin(Traffic_2_RED_GPIO_Port, Traffic_2_RED_Pin, SET);
-			HAL_GPIO_WritePin(Traffic_2_GREEN_GPIO_Port, Traffic_2_GREEN_Pin, RESET);
+			HAL_GPIO_WritePin(Traffic_2_RED_GPIO_Port, Traffic_2_RED_Pin, RESET);
+			HAL_GPIO_WritePin(Traffic_2_GREEN_GPIO_Port, Traffic_2_GREEN_Pin, SET);
 			time2=lightbufferRun[AUTO_GREEN];
 		}
 	}
 	else if(status_2==AUTO_GREEN)
 	{
-		HAL_GPIO_WritePin(Traffic_2_RED_GPIO_Port, Traffic_2_RED_Pin, SET);
-		HAL_GPIO_WritePin(Traffic_2_GREEN_GPIO_Port, Traffic_2_GREEN_Pin, RESET);
+		HAL_GPIO_WritePin(Traffic_2_RED_GPIO_Port, Traffic_2_RED_Pin, RESET);
+		HAL_GPIO_WritePin(Traffic_2_GREEN_GPIO_Port, Traffic_2_GREEN_Pin, SET);
 		if(time2==0)
 		{
 			status_2=AUTO_YELLOW;
@@ -117,8 +117,8 @@ void traffic()
 		if(time2==0)
 		{
 			status_2=AUTO_RED;
-			HAL_GPIO_WritePin(Traffic_2_RED_GPIO_Port, Traffic_2_RED_Pin, RESET);
-			HAL_GPIO_WritePin(Traffic_2_GREEN_GPIO_Port, Traffic_2_GREEN_Pin, SET);
+			HAL_GPIO_WritePin(Traffic_2_RED_GPIO_Port, Traffic_2_RED_Pin, SET);
+			HAL_GPIO_WritePin(Traffic_2_GREEN_GPIO_Port, Traffic_2_GREEN_Pin, RESET);
 			time2=lightbufferRun[AUTO_RED];
 		}
 	}
@@ -152,14 +152,14 @@ void copyModtoRun()
 		lightbufferRun[i]=lightbufferMod[i];
 	}
 }
-void blinkLed(uint8_t led)
+void blinkLed(int led)
 {
 	if((mode!=1) && (blink_flag==1))
 	{
 		if(led==RED)
 		{
-			HAL_GPIO_TogglePin(Traffic_1_GREEN_GPIO_Port, Traffic_1_GREEN_Pin);
-			HAL_GPIO_TogglePin(Traffic_2_GREEN_GPIO_Port, Traffic_2_GREEN_Pin);
+			HAL_GPIO_TogglePin(Traffic_1_RED_GPIO_Port, Traffic_1_RED_Pin);
+			HAL_GPIO_TogglePin(Traffic_2_RED_GPIO_Port, Traffic_2_RED_Pin);
 		}
 		else if(led==YELLOW)
 		{
@@ -170,16 +170,34 @@ void blinkLed(uint8_t led)
 		}
 		else if(led==GREEN)
 		{
-			HAL_GPIO_TogglePin(Traffic_1_RED_GPIO_Port, Traffic_1_RED_Pin);
-			HAL_GPIO_TogglePin(Traffic_2_RED_GPIO_Port, Traffic_2_RED_Pin);
+			HAL_GPIO_TogglePin(Traffic_1_GREEN_GPIO_Port, Traffic_1_GREEN_Pin);
+			HAL_GPIO_TogglePin(Traffic_2_GREEN_GPIO_Port, Traffic_2_GREEN_Pin);
 		}
 		setTimerBlink(500);
 	}
 }
-
+void checkpes()
+{
+	if(status_1==AUTO_RED || status_1==MAN_RED)
+	{
+		HAL_GPIO_WritePin(PES_RED_GPIO_Port, PES_RED_Pin, 0);
+		HAL_GPIO_WritePin(PES_GREEN_GPIO_Port, PES_GREEN_Pin, 1);
+	}
+	else if(status_1==AUTO_GREEN || status_1==MAN_GREEN)
+	{
+		HAL_GPIO_WritePin(PES_RED_GPIO_Port, PES_RED_Pin, 1);
+		HAL_GPIO_WritePin(PES_GREEN_GPIO_Port, PES_GREEN_Pin, 0);
+	}
+	else if(status_1==AUTO_YELLOW || status_1==MAN_YELLOW)
+	{
+		HAL_GPIO_WritePin(PES_RED_GPIO_Port, PES_RED_Pin, 1);
+		HAL_GPIO_WritePin(PES_GREEN_GPIO_Port, PES_GREEN_Pin, 1);
+	}
+}
 uint8_t str[30]="\0";
 int init_for_pes=0;
-int time_for_pes=0;
+uint8_t buzzer=0;
+int pes_start=0;
 void fsm_automatic()
 {
 	if(is_button_pressed(button1))
@@ -189,37 +207,27 @@ void fsm_automatic()
 	}
 	if(is_button_pressed(pes_but))
 	{
-		if(time_for_pes==0)
+		int all_time=(lightbufferRun[0]+lightbufferRun[1]+lightbufferRun[2])*2000;
+		setTimerPesBut(all_time);
+		pes_start=1;
+		buzzer_flag=1;
+	}
+	if(pes_start==1)
+	{
+		checkpes();
+		buzzer_boi(buzzer);
+		if(buzzer_flag==1)
 		{
-			init_for_pes=0;
-			time_for_pes=time1;
+			buzzer+=30;
+			setTimerBuzzer(1000);
 		}
-		setTimerPesBut(2000);
-		if(status_1==AUTO_RED || status_1==MAN_RED)
-		{
-			HAL_GPIO_WritePin(PES_RED_GPIO_Port, PES_RED_Pin, SET);
-			HAL_GPIO_WritePin(PES_GREEN_GPIO_Port, PES_GREEN_Pin, RESET);
-		}
-		else if(status_1==AUTO_GREEN || status_1==MAN_GREEN)
-		{
-			HAL_GPIO_WritePin(PES_RED_GPIO_Port, PES_RED_Pin, RESET);
-			HAL_GPIO_WritePin(PES_GREEN_GPIO_Port, PES_GREEN_Pin, SET);
-		}
-		else
-		{
-			HAL_GPIO_WritePin(PES_RED_GPIO_Port, PES_RED_Pin, SET);
-			HAL_GPIO_WritePin(PES_GREEN_GPIO_Port, PES_GREEN_Pin, SET);
-		}
-		__HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,init_for_pes);
-		init_for_pes+=50;
-		time_for_pes--;
 	}
 	if(pes_flag==1)
 	{
 		HAL_GPIO_WritePin(PES_RED_GPIO_Port, PES_RED_Pin, RESET);
 		HAL_GPIO_WritePin(PES_GREEN_GPIO_Port, PES_GREEN_Pin, RESET);
-		init_for_pes=0;
-		time_for_pes=0;
+		buzzer=0;
+		pes_start=0;
 	}
 	switch(mode)
 	{
@@ -235,16 +243,18 @@ void fsm_automatic()
 		}
 		traffic();
 		//send signal
-		sprintf(str,"!7SEG_1: %d#\r\n",time1);
-		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
-		sprintf(str,"!7SEG_2: %d#\r\n",time2);
-		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
+//		sprintf(str,"!7SEG_1: %d#\r\n",time1);
+//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
+//		sprintf(str,"!7SEG_2: %d#\r\n",time2);
+//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
 		break;
 	case 2:
 		if(initial_flag==1)
 		{
 			initial_flag=0;
 			setTimerReset(5000);
+			status_1=MAN_RED;
+			status_2=MAN_RED;
 			HAL_GPIO_WritePin(Traffic_1_RED_GPIO_Port, Traffic_1_RED_Pin, RESET);
 			HAL_GPIO_WritePin(Traffic_2_RED_GPIO_Port, Traffic_2_RED_Pin, RESET);
 			HAL_GPIO_WritePin(Traffic_1_GREEN_GPIO_Port, Traffic_1_GREEN_Pin, RESET);
@@ -270,10 +280,10 @@ void fsm_automatic()
 			mode=1;
 			initial_flag=1;
 		}
-		sprintf(str,"Mode is: %d\r\n",mode);
-		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
-		sprintf(str,"!Fix_Red: %d#\r\n",lightbufferMod[RED]);
-		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
+//		sprintf(str,"Mode is: %d\r\n",mode);
+//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
+//		sprintf(str,"!Fix_Red: %d#\r\n",lightbufferMod[RED]);
+//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
 		//send signal
 		break;
 	case 3:
@@ -281,6 +291,8 @@ void fsm_automatic()
 		{
 			initial_flag=0;
 			setTimerReset(5000);
+			status_1=MAN_YELLOW;
+			status_2=MAN_YELLOW;
 			HAL_GPIO_WritePin(Traffic_1_RED_GPIO_Port, Traffic_1_RED_Pin, RESET);
 			HAL_GPIO_WritePin(Traffic_2_RED_GPIO_Port, Traffic_2_RED_Pin, RESET);
 			HAL_GPIO_WritePin(Traffic_1_GREEN_GPIO_Port, Traffic_1_GREEN_Pin, RESET);
@@ -307,16 +319,18 @@ void fsm_automatic()
 			initial_flag=1;
 		}
 		//send signal
-		sprintf(str,"Mode is: %d\r\n",mode);
-		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
-		sprintf(str,"!Fix_Red: %d#\r\n",lightbufferMod[YELLOW]);
-		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
+//		sprintf(str,"Mode is: %d\r\n",mode);
+//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
+//		sprintf(str,"!Fix_Red: %d#\r\n",lightbufferMod[YELLOW]);
+//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
 		break;
 	case 4:
 		if(initial_flag==1)
 		{
 			initial_flag=0;
 			setTimerReset(5000);
+			status_1=MAN_GREEN;
+			status_2=MAN_GREEN;
 			HAL_GPIO_WritePin(Traffic_1_RED_GPIO_Port, Traffic_1_RED_Pin, RESET);
 			HAL_GPIO_WritePin(Traffic_2_RED_GPIO_Port, Traffic_2_RED_Pin, RESET);
 			HAL_GPIO_WritePin(Traffic_1_GREEN_GPIO_Port, Traffic_1_GREEN_Pin, RESET);
@@ -343,10 +357,10 @@ void fsm_automatic()
 			initial_flag=1;
 		}
 		//send signal
-		sprintf(str,"Mode is: %d\r\n",mode);
-		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
-		sprintf(str,"!Fix_Red: %d#\r\n",lightbufferMod[GREEN]);
-		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
+//		sprintf(str,"Mode is: %d\r\n",mode);
+//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
+//		sprintf(str,"!Fix_Red: %d#\r\n",lightbufferMod[GREEN]);
+//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
 		break;
 	default:
 		break;

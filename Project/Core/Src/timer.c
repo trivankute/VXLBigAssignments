@@ -16,6 +16,8 @@ int pes_flag=0;
 int pes_counter=0;
 int blink_flag=0;
 int blink_counter=0;
+int buzzer_flag=0;
+int buzzer_counter=0;
 void setTimerReset(int duration)
 {
 	reset_counter=duration/10;
@@ -35,6 +37,11 @@ void setTimerBlink(int duration)
 {
 	blink_counter=duration/10;
 	blink_flag=0;
+}
+void setTimerBuzzer(int duration)
+{
+	buzzer_counter=duration/10;
+	buzzer_flag=0;
 }
 void timerRun()
 {
@@ -68,6 +75,14 @@ void timerRun()
 		if(blink_counter<=0)
 		{
 			blink_flag=1;
+		}
+	}
+	if(buzzer_counter>0)
+	{
+		buzzer_counter--;
+		if(buzzer_counter<=0)
+		{
+			buzzer_flag=1;
 		}
 	}
 }
