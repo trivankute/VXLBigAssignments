@@ -124,6 +124,7 @@ void traffic()
 	}
 	if(mode==1 && run_flag==1)
 	{
+		send_uart(time1, time2);
 		time1--;
 		time2--;
 		setTimerRun(1000);
@@ -243,10 +244,7 @@ void fsm_automatic()
 		}
 		traffic();
 		//send signal
-//		sprintf(str,"!7SEG_1: %d#\r\n",time1);
-//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
-//		sprintf(str,"!7SEG_2: %d#\r\n",time2);
-//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
+
 		break;
 	case 2:
 		if(initial_flag==1)
@@ -280,10 +278,7 @@ void fsm_automatic()
 			mode=1;
 			initial_flag=1;
 		}
-//		sprintf(str,"Mode is: %d\r\n",mode);
-//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
-//		sprintf(str,"!Fix_Red: %d#\r\n",lightbufferMod[RED]);
-//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
+
 		//send signal
 		break;
 	case 3:
@@ -319,10 +314,7 @@ void fsm_automatic()
 			initial_flag=1;
 		}
 		//send signal
-//		sprintf(str,"Mode is: %d\r\n",mode);
-//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
-//		sprintf(str,"!Fix_Red: %d#\r\n",lightbufferMod[YELLOW]);
-//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
+
 		break;
 	case 4:
 		if(initial_flag==1)
@@ -357,10 +349,7 @@ void fsm_automatic()
 			initial_flag=1;
 		}
 		//send signal
-//		sprintf(str,"Mode is: %d\r\n",mode);
-//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
-//		sprintf(str,"!Fix_Red: %d#\r\n",lightbufferMod[GREEN]);
-//		HAL_UART_Transmit(&huart2,str,sizeof(str),10);
+
 		break;
 	default:
 		break;

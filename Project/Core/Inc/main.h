@@ -54,7 +54,8 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
-
+void buzzer_boi(uint8_t buzzer);
+void send_uart(int value1,int value2);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

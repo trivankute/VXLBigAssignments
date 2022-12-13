@@ -22,6 +22,7 @@
 #include "input_processing.h"
 #include "input_reading.h"
 #include "timer.h"
+#include "stdio.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -59,6 +60,7 @@ static void MX_TIM2_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 void buzzer_boi(uint8_t buzzer);
+void send_uart(int value1, int value2);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -75,6 +77,14 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
 void buzzer_boi(uint8_t buzzer)
 {
 	__HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,buzzer);
+}
+void send_uart(int value1,int value2)
+{
+	uint8_t str[30]="\0";
+	sprintf(str,"!7SEG_1#: %d\r\n",value1);
+	HAL_UART_Transmit(&huart2,str,sizeof(str),50);
+	sprintf(str,"!7SEG_2#: %d\r\n",value2);
+	HAL_UART_Transmit(&huart2,str,sizeof(str),50);
 }
 /* USER CODE END 0 */
 
