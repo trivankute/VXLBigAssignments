@@ -36,8 +36,6 @@ int time2;
 int mode;
 int initial_flag=1;
 
-UART_HandleTypeDef huart2;
-TIM_HandleTypeDef htim3;
 void initial()
 {
 	status_1=AUTO_RED;
@@ -212,6 +210,7 @@ void fsm_automatic()
 		setTimerPesBut(all_time);
 		pes_start=1;
 		buzzer_flag=1;
+		buzzer=0;
 	}
 	if(pes_start==1)
 	{
@@ -220,6 +219,10 @@ void fsm_automatic()
 		if(buzzer_flag==1)
 		{
 			buzzer+=30;
+			if(buzzer>=99)
+			{
+				buzzer=99;
+			}
 			setTimerBuzzer(1000);
 		}
 	}

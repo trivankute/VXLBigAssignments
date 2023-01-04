@@ -1,8 +1,8 @@
-input_processing.c:41:6:initial	8	static
-input_processing.c:51:6:traffic	8	static
-input_processing.c:133:6:updateMode	4	static
-input_processing.c:141:6:increase	16	static
-input_processing.c:149:6:copyModtoRun	16	static
-input_processing.c:156:6:blinkLed	16	static
-input_processing.c:180:6:checkpes	8	static
-input_processing.c:202:6:fsm_automatic	16	static
+input_processing.c:39:6:initial	8	static
+input_processing.c:49:6:traffic	8	static
+input_processing.c:131:6:updateMode	4	static
+input_processing.c:139:6:increase	16	static
+input_processing.c:147:6:copyModtoRun	16	static
+input_processing.c:154:6:blinkLed	16	static
+input_processing.c:178:6:checkpes	8	static
+input_processing.c:200:6:fsm_automatic	16	static
