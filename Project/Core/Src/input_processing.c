@@ -232,6 +232,7 @@ void fsm_automatic()
 		HAL_GPIO_WritePin(PES_GREEN_GPIO_Port, PES_GREEN_Pin, RESET);
 		buzzer=0;
 		pes_start=0;
+		buzzer_boi(0);
 	}
 	switch(mode)
 	{
